@@ -4,7 +4,7 @@ using Catalogo.Domain.Entities;
 
 namespace Catalogo.Application.Mappings
 {
-    internal class DomainToDTOMappingProfile : Profile
+    public class DomainToDTOMappingProfile : Profile
     {
         public DomainToDTOMappingProfile()
         {

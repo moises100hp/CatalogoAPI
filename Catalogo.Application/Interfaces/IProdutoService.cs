@@ -4,10 +4,10 @@ namespace Catalogo.Application.Interfaces
 {
     public interface IProdutoService
     {
-        Task<IEnumerable<CategoriaDTO>> GetCategorias();
-        Task<CategoriaDTO> GetById(int? id);
-        Task Add(CategoriaDTO categoriaDTO);
-        Task Update(CategoriaDTO categoriaDTO);
+        Task<IEnumerable<ProdutoDTO>> GetProdutos();
+        Task<ProdutoDTO> GetById(int? id);
+        Task Add(ProdutoDTO produtoDto);
+        Task Update(ProdutoDTO produtoDto);
         Task Remove(int? id);
     }
 }

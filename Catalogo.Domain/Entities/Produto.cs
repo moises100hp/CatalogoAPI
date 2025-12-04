@@ -4,27 +4,32 @@ namespace Catalogo.Domain.Entities
 {
     public sealed class Produto : Entity
     {
-        public Produto(string nome, string descricao, decimal preco, string imageUrl,
+        public Produto()
+        {
+            
+        }
+
+        public Produto(string Nome, string descricao, decimal preco, string ImagemUrl,
             int estoque, DateTime dataCadastro)
         {
-            ValidateDomain(nome, descricao, preco, imageUrl, estoque, dataCadastro);
+            ValidateDomain(Nome, descricao, preco, ImagemUrl, estoque, dataCadastro);
         }
 
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
         public decimal Preco { get; private set; }
-        public string ImageUrl { get; private set; }
+        public string ImagemUrl { get; private set; }
         public int Estoque { get; private set; }
         public DateTime DataCadastro { get; private set; }
 
-        public void Update(string nome, string descricao, decimal preco, string imageUrl,
+        public void Update(string nome, string descricao, decimal preco, string ImagemUrl,
             int estoque, DateTime dataCadastro, int categoriaId)
         {
-            ValidateDomain(nome, descricao, preco, imageUrl, estoque, dataCadastro);
+            ValidateDomain(nome, descricao, preco, ImagemUrl, estoque, dataCadastro);
             CategoriaId = categoriaId;
         }
 
-        private void ValidateDomain(string nome, string descricao, decimal preco, string imageUrl, 
+        private void ValidateDomain(string nome, string descricao, decimal preco, string ImagemUrl, 
             int estoque, DateTime dataCadastro)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(nome),
@@ -41,7 +46,7 @@ namespace Catalogo.Domain.Entities
 
             DomainExceptionValidation.When(preco < 0, "Valor do preço inválido");
 
-            DomainExceptionValidation.When(imageUrl?.Length > 250,
+            DomainExceptionValidation.When(ImagemUrl?.Length > 250,
                 "O nome da imagem não pode exceder 250 caracteres");
 
             DomainExceptionValidation.When(preco < 0, "Valor do preço inváido");
@@ -49,7 +54,7 @@ namespace Catalogo.Domain.Entities
             Nome = nome;
             Descricao = descricao;
             Preco = preco;
-            ImageUrl = imageUrl;
+            this.ImagemUrl = ImagemUrl;
             Estoque = estoque;
             DataCadastro = dataCadastro;
         }

@@ -1,12 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Catalogo.Application.DTOs;
+using Catalogo.Application.Interfaces;
+using Catalogo.Domain.Entities;
+using Catalogo.Domain.Interfaces;
 
 namespace Catalogo.Application.Services
 {
-    internal class ProdutoService
+    public class ProdutoService : IProdutoService
     {
+        private IProdutoRepository _productRepository;
+        private readonly IMapper _mapper;
+
+        public ProdutoService(IMapper mapper, IProdutoRepository produtoRepository)
+        {
+            _productRepository = produtoRepository ??
+                throw new ArgumentException(nameof(produtoRepository));
+
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ProdutoDTO>> GetProdutos()
+        {
+            var produtctsEntity = await _productRepository.GetProdutoAsync();
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(produtctsEntity);
+        }
+
+        public async Task<ProdutoDTO> GetById(int? id)
+        {
+            var productEntity = await _productRepository.GetByIdAsync(id);
+            return _mapper.Map<ProdutoDTO>(productEntity);
+        }
+
+        public async Task Add(ProdutoDTO produtoDto)
+        {
+            var productEntity = _mapper.Map<Produto>(produtoDto);
+            await _productRepository.CreateAsync(productEntity);
+        }
+
+        public async Task Update(ProdutoDTO produtoDto)
+        {
+            var productEntity = _mapper.Map<Produto>(produtoDto);
+            await _productRepository.UpdateAsync(productEntity);
+        }
+
+        public async Task Remove(int? id)
+        {
+            var productEntity = _productRepository.GetByIdAsync(id).Result;
+            await _productRepository.RemoveAsync(productEntity);
+        }
     }
 }
