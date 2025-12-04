@@ -7,7 +7,6 @@ using Catalogo.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AutoMapper; // <--- Necessário para a configuração manual
 
 namespace Catalogo.CrossCutting.IoC
 {
@@ -26,15 +25,6 @@ namespace Catalogo.CrossCutting.IoC
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<ICategoriaService, CategoriaService>();
-
-            //var config = new MapperConfiguration((IMapperConfigurationExpression cfg) =>
-            //{
-            //    // Adiciona o perfil. Se der erro aqui, o problema é na classe do Profile.
-            //    cfg.AddProfile(new DomainToDTOMappingProfile());
-            //});
-
-            //IMapper mapper = config.CreateMapper();
-            //services.AddSingleton(mapper);
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
